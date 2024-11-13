@@ -1,1 +1,1 @@
-Cart service .Net 8.0 API with Onion Architecture
+Cart Service - .Net 8.0 API with Onion Architecture
