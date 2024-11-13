@@ -1,1 +1,4 @@
 Cart Service - .Net 8.0 API with Onion Architecture
+
+https://code-maze.com/onion-architecture-in-aspnetcore/
+https://code-maze.com/dotnet-clean-architecture/
