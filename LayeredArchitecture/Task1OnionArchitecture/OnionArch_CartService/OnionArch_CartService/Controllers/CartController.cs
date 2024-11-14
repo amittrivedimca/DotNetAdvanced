@@ -5,7 +5,7 @@ using Shared.DTO;
 
 namespace OnionArch_CartService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CartController : ControllerBase
     {
@@ -16,10 +16,31 @@ namespace OnionArch_CartService.Controllers
             _serviceManager = serviceManager;
         }
 
+        [HttpGet(Name = "InitCart")]
+        public ActionResult InitCart()
+        {
+            _serviceManager.CartService.InitCart();
+            return Ok();
+        }
+
         [HttpGet(Name = "GetCartItems")]
         public ActionResult<List<CartItemDTO>> GetCartItems(int cartId)
         {
             return Ok(_serviceManager.CartService.GetCartItems(cartId));
+        }
+
+        [HttpPost(Name = "AddCartItem")]
+        public ActionResult AddCartItem(CartItemDTO cartItem)
+        {
+            _serviceManager.CartService.AddItem(cartItem);
+            return Ok();
+        }
+
+        [HttpPost(Name = "RemoveCartItem")]        
+        public ActionResult RemoveCartItem([FromQuery]int cartId, [FromQuery]int itemId)
+        {
+            _serviceManager.CartService.RemoveItem(cartId,itemId);
+            return Ok();
         }
     }
 }

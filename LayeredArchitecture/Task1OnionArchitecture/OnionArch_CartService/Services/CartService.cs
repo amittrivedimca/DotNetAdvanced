@@ -14,29 +14,43 @@ namespace Services
             _repositoryManager = repositoryManager;
         }
 
-        public bool AddItem(int cartId, CartItemDTO item)
+        int cartId = 1;
+
+        public void InitCart()
         {
-            throw new NotImplementedException();
+            Cart existingCart = _repositoryManager.CartRepository.GetCart(cartId);
+
+            if (existingCart == null)
+            {
+                List<CartItem> items = new List<CartItem>() {
+                    new CartItem(){ ItemId = 1, Name = "Item 1", Price = 10, Quantity = 100, ItemImage = new ItemImageInfo() },
+                    new CartItem(){ ItemId = 2, Name = "Item 2", Price = 20, Quantity = 200, ItemImage = new ItemImageInfo() },
+                };
+
+                var cart = new Cart()
+                {
+                    CartId = cartId,
+                    CartItems = items
+                };
+                _repositoryManager.CartRepository.InsertCart(cart);
+            }
+        }
+
+        public bool AddItem(CartItemDTO item)
+        {
+            return _repositoryManager.CartRepository.AddItem(item.CartId, item.ToCartItem());
         }
 
         public List<CartItemDTO> GetCartItems(int cartId)
         {
             Cart cart = _repositoryManager.CartRepository.GetCart(cartId);
-            List<CartItemDTO> cartItems = cart.CartItems.Select(i => new CartItemDTO()
-            {
-                ItemId = i.ItemId,
-                ItemImage = new ItemImageInfoDTO() { Url = i.ItemImage.Url, AltText = i.ItemImage.AltText },
-                Name = i.Name,
-                Price = i.Price,
-                Quantity = i.Quantity
-            }).ToList();
-
+            List<CartItemDTO> cartItems = cart.CartItems.Select(i => i.ToCartItemDTO(cartId)).ToList();
             return cartItems;
         }
 
         public bool RemoveItem(int cartId, int itemId)
         {
-            throw new NotImplementedException();
+            return _repositoryManager.CartRepository.RemoveItem(cartId, itemId);
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Domain.Entities
 {
     public class Cart
-    {
+    {        
         public int CartId { get; set; }
         public List<CartItem> CartItems { get; set; }
     }

@@ -12,5 +12,7 @@ namespace Domain.RepositoryInterfaces
         public Cart GetCart(int cartId);
         public bool InsertCart(Cart cart);
         public bool UpdateCart(Cart cart);
+        public bool AddItem(int cartId, CartItem item);
+        public bool RemoveItem(int cartId, int itemId);
     }
 }

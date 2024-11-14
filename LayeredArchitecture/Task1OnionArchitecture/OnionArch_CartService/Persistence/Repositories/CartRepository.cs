@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,30 +11,47 @@ namespace Persistence.Repositories
 {
     public class CartRepository : ICartRepository
     {
-        public Cart GetCart(int cartId)
+        CartLiteDB cartDB;
+
+        public CartRepository()
         {
-            //throw new NotImplementedException();
-
-            List<CartItem> items = new List<CartItem>() {
-                new CartItem(){ ItemId = 1, Name = "Item 1", Price = 10, Quantity = 100, ItemImage = new ItemImageInfo() },
-                new CartItem(){ ItemId = 2, Name = "Item 2", Price = 20, Quantity = 200, ItemImage = new ItemImageInfo() },
-            };
-
-            return new Cart()
-            {
-                CartId = 1,
-                CartItems = items
-            };
+            cartDB = new CartLiteDB();
         }
+
+        public Cart GetCart(int cartId)
+        {                        
+            return cartDB.GetCart(cartId);
+        }         
 
         public bool InsertCart(Cart cart)
         {
-            throw new NotImplementedException();
+            return cartDB.InsertCart(cart);
         }
 
         public bool UpdateCart(Cart cart)
         {
-            throw new NotImplementedException();
+            return cartDB.UpdateCart(cart);
+        }
+
+        public bool AddItem(int cartId, CartItem item) {
+            Cart cart = cartDB.GetCart(cartId);
+            cart.CartItems.Add(item);
+            cartDB.UpdateCart(cart);
+            return true;
+        }
+
+        public bool RemoveItem(int cartId, int itemId)
+        {
+            Cart cart = cartDB.GetCart(cartId);
+            CartItem? itemToRemove = cart.CartItems.FirstOrDefault(i => i.ItemId == itemId);
+
+            if (itemToRemove != null)
+            {
+                cart.CartItems.Remove(itemToRemove);
+            }
+
+            cartDB.UpdateCart(cart);
+            return true;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Shared.DTO
 {
     public class CartItemDTO
     {
+        public int CartId { get; set; }
         public int ItemId { get; set; }
         public string Name { get; set; }
         public ItemImageInfoDTO ItemImage { get; set; }
