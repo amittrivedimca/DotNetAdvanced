@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/.vs/ProjectEvaluation
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Domain/bin/Debug/net8.0
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Domain/obj/Debug/net8.0
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Domain/obj
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/OnionArch_CartService/bin/Debug/net8.0
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/OnionArch_CartService/obj/Debug/net8.0
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/OnionArch_CartService/obj
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Persistence/bin/Debug/net8.0
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Persistence/obj
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Services/bin/Debug/net8.0
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Services/obj
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Shared.DTO/bin/Debug/net8.0
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Shared.DTO/obj
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Services.Abstractions/bin/Debug/net8.0
+/LayeredArchitecture/Task1OnionArchitecture/OnionArch_CartService/Services.Abstractions/obj
