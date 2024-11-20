@@ -8,13 +8,14 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
 {
     private readonly ILogger _logger;
     private readonly IUser _user;
-    private readonly IIdentityService _identityService;
+    //private readonly IIdentityService _identityService;
 
-    public LoggingBehaviour(ILogger<TRequest> logger, IUser user, IIdentityService identityService)
+    //public LoggingBehaviour(ILogger<TRequest> logger, IUser user, IIdentityService identityService)
+    public LoggingBehaviour(ILogger<TRequest> logger, IUser user)
     {
         _logger = logger;
         _user = user;
-        _identityService = identityService;
+        //_identityService = identityService;
     }
 
     public async Task Process(TRequest request, CancellationToken cancellationToken)
@@ -23,11 +24,11 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
         var userId = _user.Id ?? string.Empty;
         string? userName = string.Empty;
 
-        if (!string.IsNullOrEmpty(userId))
-        {
-            userName = await _identityService.GetUserNameAsync(userId);
-        }
-
+        //if (!string.IsNullOrEmpty(userId))
+        //{
+        //    userName = await _identityService.GetUserNameAsync(userId);
+        //}
+        await Task.Delay(0);
         _logger.LogInformation("CA_CatalogService Request: {Name} {@UserId} {@UserName} {@Request}",
             requestName, userId, userName, request);
     }
