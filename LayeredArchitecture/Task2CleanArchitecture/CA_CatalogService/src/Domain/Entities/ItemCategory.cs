@@ -10,5 +10,5 @@ public class ItemCategory
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string? Image { get; set; }
-    public ItemCategory? ParentCategory { get; private set; }
+    public ItemCategory? ParentCategory { get; set; }
 }

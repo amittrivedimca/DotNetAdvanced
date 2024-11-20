@@ -24,7 +24,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, ILi
     {
         var list = (_context.Categories
             .OrderBy(x => x.Name));
-        var data = list.ToList();
+        //var data = list.ToList();
         var list2 = await list.ProjectToListAsync<CategoryDTO>(_mapper.ConfigurationProvider);
         return list2;
     }
