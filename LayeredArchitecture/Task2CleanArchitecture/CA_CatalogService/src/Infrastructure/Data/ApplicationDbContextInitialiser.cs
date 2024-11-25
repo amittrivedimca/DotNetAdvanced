@@ -120,5 +120,20 @@ public class ApplicationDbContextInitialiser
             });
             await _context.SaveChangesAsync();
         }
+
+        if (!_context.Products.Any())
+        {
+            _context.Products.Add(new Product()
+            {
+                Name = "Product 1",
+                 CategoryId = 1
+            });
+            _context.Products.Add(new Product()
+            {
+                Name = "Product 2",
+                CategoryId = 1
+            });
+            await _context.SaveChangesAsync();
+        }
     }
 }
