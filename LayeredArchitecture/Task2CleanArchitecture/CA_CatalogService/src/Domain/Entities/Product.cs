@@ -17,5 +17,5 @@ public class Product
 
     [Column(TypeName = "decimal(5, 2)")]
     public decimal Price { get; set; }
-    public Int64 Amount { get; set; }
+    public int Amount { get; set; }
 }
