@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CA_CatalogService.Application.Products.Commands.CreateProduct;
+﻿using CA_CatalogService.Application.Products.Commands.CreateProduct;
 using CA_CatalogService.Application.Products.Queries.GetProducts;
-using CA_CatalogService.Application.TodoLists.Queries.GetTodos;
-using CA_CatalogService.Domain.Entities;
-using CA_CatalogService.Domain.ValueObjects;
 using static CA_CatalogService.Application.FunctionalTests.Testing;
 
 namespace CA_CatalogService.Application.FunctionalTests.Products.Queries;

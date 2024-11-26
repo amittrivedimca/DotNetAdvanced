@@ -2,8 +2,6 @@
 using CA_CatalogService.Application.Category.Commands.DeteteCategory;
 using CA_CatalogService.Application.Category.Commands.UpdateCategory;
 using CA_CatalogService.Application.Category.Queries.GetCategories;
-using CA_CatalogService.Application.TodoItems.Commands.DeleteTodoItem;
-using CA_CatalogService.Application.TodoLists.Commands.UpdateTodoList;
 
 namespace CA_CatalogService.Web.Endpoints;
 

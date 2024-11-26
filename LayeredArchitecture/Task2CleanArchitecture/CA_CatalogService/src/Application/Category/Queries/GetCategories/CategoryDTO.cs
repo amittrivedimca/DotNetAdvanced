@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CA_CatalogService.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using CA_CatalogService.Domain.Entities;
 
 namespace CA_CatalogService.Application.Category.Queries.GetCategories;
