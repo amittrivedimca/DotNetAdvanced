@@ -19,14 +19,14 @@ public class Categories : EndpointGroupBase
             .MapDelete(DeleteCategory, "{id}");
     }
 
-    public Task<IList<CategoryDTO>> GetCategories(ISender sender, [AsParameters] GetCategoriesQuery query)
+    public async Task<IList<CategoryDTO>> GetCategories(ISender sender, [AsParameters] GetCategoriesQuery query)
     {
-        return sender.Send(query);
+        return await sender.Send(query);
     }
 
-    public Task<int> CreateCategory(ISender sender, CreateCategoryCommand command)
+    public async Task<int> CreateCategory(ISender sender, CreateCategoryCommand command)
     {
-        return sender.Send(command);
+        return await sender.Send(command);
     }
 
     public async Task<IResult> UpdateCategory(ISender sender, int id, UpdateCategoryCommand command)

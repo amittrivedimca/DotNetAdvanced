@@ -1,10 +1,8 @@
-﻿using CA_CatalogService.Application.Category.Commands.CreateCategory;
-using CA_CatalogService.Application.Category.Commands.DeteteCategory;
-using CA_CatalogService.Application.Category.Commands.UpdateCategory;
-using CA_CatalogService.Application.Category.Queries.GetCategories;
+﻿using CA_CatalogService.Application.Products.Commands.CreateProduct;
+using CA_CatalogService.Application.Products.Commands.DeleteProduct;
+using CA_CatalogService.Application.Products.Commands.UpdateProduct;
 using CA_CatalogService.Application.Products.Queries.GetProducts;
 using CA_CatalogService.Application.Products.Queries.ListProducts;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CA_CatalogService.Web.Endpoints;
 
@@ -16,37 +14,36 @@ public class Products : EndpointGroupBase
             //.RequireAuthorization()
             .MapGet(GetProduct, "{id}")
             .MapGet(ListProducts)
-            //.MapPost(CreateCategory)
-            //.MapPut(UpdateCategory, "{id}")
-            //.MapDelete(DeleteCategory, "{id}")
-            ;
+            .MapPost(CreateProduct)
+            .MapPut(UpdateProduct, "{id}")
+            .MapDelete(DeleteProduct, "{id}");
     }
         
-    public Task<ProductDTO> GetProduct(ISender sender, [AsParameters] GetProductQuery query)
+    public async Task<ProductDTO> GetProduct(ISender sender, [AsParameters] GetProductQuery query)
     {
-        return sender.Send(query);
+        return await sender.Send(query);
     }
 
-    public Task<IList<ProductShortInfoDTO>> ListProducts(ISender sender, [AsParameters] ListProductsQuery query)
+    public async Task<IList<ProductShortInfoDTO>> ListProducts(ISender sender, [AsParameters] ListProductsQuery query)
     {
-        return sender.Send(query);
-    }    
+        return await sender.Send(query);
+    }
 
-    //public Task<int> CreateCategory(ISender sender, CreateCategoryCommand command)
-    //{
-    //    return sender.Send(command);
-    //}
+    public async Task<int> CreateProduct(ISender sender, CreateProductCommand command)
+    {
+        return await sender.Send(command);
+    }
 
-    //public async Task<IResult> UpdateCategory(ISender sender, int id, UpdateCategoryCommand command)
-    //{
-    //    if (id != command.Id) return Results.BadRequest();
-    //    await sender.Send(command);
-    //    return Results.NoContent();
-    //}
+    public async Task<IResult> UpdateProduct(ISender sender, int id, UpdateProductCommand command)
+    {
+        if (id != command.Id) return Results.BadRequest();
+        await sender.Send(command);
+        return Results.NoContent();
+    }
 
-    //public async Task<IResult> DeleteCategory(ISender sender, int id)
-    //{
-    //    await sender.Send(new DeleteCategoryCommand(id));
-    //    return Results.NoContent();
-    //}
+    public async Task<IResult> DeleteProduct(ISender sender, int id)
+    {
+        await sender.Send(new DeleteProductCommand(id));
+        return Results.NoContent();
+    }
 }
