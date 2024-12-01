@@ -1,5 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using Microsoft.EntityFrameworkCore;
+using Persistence.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,14 @@ namespace Persistence
 {
     public class CategoryRepository : ICategoryRepository
     {
-        public Task<IEnumerable<Category>> GetAllAsync()
+        private readonly CatalogDB _catalogDB;
+        public CategoryRepository(CatalogDB catalogDB) {
+            _catalogDB = catalogDB;
+        }
+
+        public IEnumerable<Category> GetAll()
         {
-            throw new NotImplementedException();
+            return _catalogDB.Categories;
         }
     }
 }

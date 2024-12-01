@@ -8,19 +8,20 @@ using System.Threading.Tasks;
 
 namespace Application.CategoryProvider
 {
-    public class CategoryProvider
+    public class CategoryProvider : ICategoryProvider
     {
         private readonly IMapper _mapper;
         private ICategoryRepository _categoryRepository;
-        public CategoryProvider(IMapper mapper, ICategoryRepository categoryRepository)
+
+        public CategoryProvider(IMapper mapper, IRepositoryManager repositoryManager)
         {
             _mapper = mapper;
-            _categoryRepository = categoryRepository;
+            _categoryRepository = repositoryManager.CategoryRepository;
         }
 
-        public async Task<IEnumerable<CategoryDTO>> GetAllAsync()
+        public IEnumerable<CategoryDTO> GetAll()
         {
-            var list = await _categoryRepository.GetAllAsync();
+            var list = _categoryRepository.GetAll();            
             return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(list);
         }
     }

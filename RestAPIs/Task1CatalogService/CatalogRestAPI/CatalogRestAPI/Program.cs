@@ -1,5 +1,6 @@
 using Application;
 using Persistence;
+using Persistence.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,14 +17,23 @@ services.AddPersistenceServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var srv = scope.ServiceProvider;
+
+    var context = srv.GetRequiredService<CatalogDB>();
+    context.Database.EnsureCreated();
+    // DbInitializer.Initialize(context);
 }
 
-app.UseAuthorization();
+// Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+//}
+
+//app.UseAuthorization();
 
 app.MapControllers();
 

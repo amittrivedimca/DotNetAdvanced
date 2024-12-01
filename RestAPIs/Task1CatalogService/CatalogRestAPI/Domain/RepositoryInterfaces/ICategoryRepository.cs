@@ -9,6 +9,6 @@ namespace Domain.RepositoryInterfaces
 {
     public interface ICategoryRepository
     {
-        Task<IEnumerable<Category>> GetAllAsync();
+        IEnumerable<Category> GetAll();
     }
 }
