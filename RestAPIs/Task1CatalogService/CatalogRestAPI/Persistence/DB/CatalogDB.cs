@@ -7,6 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
+
+// https://learn.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-9.0&tabs=visual-studio
+
 namespace Persistence.DB
 {
     public class CatalogDB : DbContext
@@ -17,6 +20,7 @@ namespace Persistence.DB
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder builder)
         //{

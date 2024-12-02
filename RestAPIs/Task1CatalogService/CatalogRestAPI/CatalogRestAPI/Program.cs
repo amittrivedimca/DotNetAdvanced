@@ -20,10 +20,9 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var srv = scope.ServiceProvider;
-
     var context = srv.GetRequiredService<CatalogDB>();
     context.Database.EnsureCreated();
-    // DbInitializer.Initialize(context);
+    DbInitializer.Initialize(context);
 }
 
 // Configure the HTTP request pipeline.

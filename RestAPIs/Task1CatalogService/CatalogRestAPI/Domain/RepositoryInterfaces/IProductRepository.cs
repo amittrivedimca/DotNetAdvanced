@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.RepositoryInterfaces
 {
-    public interface IRepositoryManager
+    public interface IProductRepository
     {
-        public ICategoryRepository CategoryRepository  { get; }
-        public IProductRepository ProductRepository { get; }
+
     }
 }

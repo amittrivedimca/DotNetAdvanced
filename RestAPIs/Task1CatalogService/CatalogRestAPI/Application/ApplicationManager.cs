@@ -1,10 +1,5 @@
-﻿using AppCategoryProvider = Application.CategoryProvider;
+﻿using Application.CategoryAL;
 using Domain.RepositoryInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application
 {
@@ -12,15 +7,15 @@ namespace Application
     {
         private readonly IMapper _mapper;
         private ICategoryRepository _categoryRepository;
-        private readonly Lazy<AppCategoryProvider.ICategoryProvider> lazyCategoryProvider = new Lazy<AppCategoryProvider.ICategoryProvider>();
+        private readonly Lazy<ICategoryProvider> lazyCategoryProvider = new Lazy<ICategoryProvider>();
 
         public ApplicationManager(IMapper mapper, IRepositoryManager repositoryManager)
         {
             _mapper = mapper;
             _categoryRepository = repositoryManager.CategoryRepository;
-            lazyCategoryProvider = new Lazy<AppCategoryProvider.ICategoryProvider>(() => new AppCategoryProvider.CategoryProvider(mapper, repositoryManager));
+            lazyCategoryProvider = new Lazy<ICategoryProvider>(() => new CategoryProvider(mapper, repositoryManager));
         }
 
-        public AppCategoryProvider.ICategoryProvider CategoryProvider => lazyCategoryProvider.Value;
+        public ICategoryProvider CategoryProvider => lazyCategoryProvider.Value;
     }
 }

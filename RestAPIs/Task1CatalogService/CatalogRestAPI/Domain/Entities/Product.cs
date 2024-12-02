@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public class Product
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
         public string? Image { get; set; }
@@ -18,5 +18,6 @@ namespace Domain.Entities
         [Column(TypeName = "decimal(5, 2)")]
         public decimal Price { get; set; }
         public int Amount { get; set; }
+                
     }
 }

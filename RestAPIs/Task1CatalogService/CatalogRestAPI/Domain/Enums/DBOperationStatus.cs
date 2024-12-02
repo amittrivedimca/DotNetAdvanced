@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.CategoryProvider
+namespace Domain.Enums
 {
-    public interface ICategoryProvider
+    public enum DBOperationStatus
     {
-        IEnumerable<CategoryDTO> GetAll();
+        Success = 0,
+        Fail = 1,
+        NotFound = 2,
+        Error = 3
     }
 }
