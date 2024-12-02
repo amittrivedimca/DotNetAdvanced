@@ -1,8 +1,12 @@
 ﻿using Application;
 using Application.CategoryAL;
 using Application.ProductAL;
+using CatalogRestAPI.ViewModels;
+using Domain.Entities;
 using HelperUtils;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace CatalogRestAPI.Controllers
 {
@@ -16,9 +20,10 @@ namespace CatalogRestAPI.Controllers
             _appManager = applicationManager;
         }
 
-        [HttpGet("{categoryID}/{pageNumber?}/{pageSize?}")]
 
-        public async Task<ActionResult<PagedList<ProductDTO>>> GetAll([FromRoute]int categoryID, 
+        [HttpGet("{categoryID}/{pageNumber?}/{pageSize?}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ApiResponse<PagedList<ProductShortInfoDTO>>>> GetAll([FromRoute]int categoryID, 
             [FromRoute] int pageNumber=0, [FromRoute] int pageSize=0)
         {
             ProductsFilter filter = new ProductsFilter()
@@ -28,21 +33,72 @@ namespace CatalogRestAPI.Controllers
                 PageSize = pageSize
             };
 
-            return Ok(await _appManager.ProductProvider.GetAllAsync(filter));
+            ApiResponse<PagedList<ProductShortInfoDTO>> apiResponse = new ApiResponse<PagedList<ProductShortInfoDTO>>();
+            apiResponse.Data = await _appManager.ProductProvider.GetAllAsync(filter);
+
+            apiResponse.Links.Add(new Link() { 
+                 Href = "/GetAll/" + filter.CategoryID + "/" + (filter.PageNumber + 1) + "/" + filter.PageSize,
+                 Type="GET",
+                 Rel = "get_next_page"
+            });
+
+            apiResponse.Links.Add(new Link()
+            {
+                Href = this.Url.ActionLink("Add") ?? "",
+                Type = "POST",
+                Rel = "add_product"
+            });
+
+            return Ok(apiResponse);
         }
 
         [HttpGet()]
-        public async Task<ActionResult<CategoryDTO>> GetById(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ApiResponse<ProductDTO>>> GetById(int id)
         {
-            var result = await _appManager.CategoryProvider.GetById(id);
+            var result = await _appManager.ProductProvider.GetById(id);
             if (result.Item1 == DBOperationStatus.NotFound)
             {
                 return NotFound(result.Item1.ToString());
             }
-            return Ok(result.Item2);
+
+            ApiResponse<ProductDTO> apiResponse = new ApiResponse<ProductDTO>();
+
+            apiResponse.Links.Add(new Link()
+            {
+                Href = this.Url.ActionLink("GetById") ?? "",
+                Type = "GET",
+                Rel = "self"
+            });
+
+            apiResponse.Links.Add(new Link()
+            {
+                Href = this.Url.ActionLink("Add") ?? "",
+                Type = "POST",
+                Rel = "add_product"
+            });
+
+            apiResponse.Links.Add(new Link()
+            {
+                Href = this.Url.ActionLink("Update") ?? "",
+                Type = "PUT",
+                Rel = "update_product"
+            });
+
+            apiResponse.Links.Add(new Link()
+            {
+                Href = this.Url.ActionLink("Delete") ?? "",
+                Type = "Delete",
+                Rel = "delete_product"
+            });
+
+            return Ok(apiResponse);
         }
 
         [HttpPost()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<string>> Add(ProductDTO product)
         {
             try
@@ -56,6 +112,9 @@ namespace CatalogRestAPI.Controllers
         }
 
         [HttpPut()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<string>> Update(ProductDTO product)
         {
             try
@@ -74,6 +133,9 @@ namespace CatalogRestAPI.Controllers
         }
 
         [HttpDelete()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<string>> Delete(int id)
         {
             try
