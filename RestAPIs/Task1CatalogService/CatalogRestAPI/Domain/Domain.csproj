@@ -5,4 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>    
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HelperUtils\HelperUtils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="EntityHelpers\" />
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>

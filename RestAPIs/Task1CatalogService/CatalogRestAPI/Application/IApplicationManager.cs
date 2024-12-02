@@ -1,4 +1,5 @@
 ﻿using Application.CategoryAL;
+using Application.ProductAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Application
     public interface IApplicationManager
     {
         ICategoryProvider CategoryProvider { get; }
+        IProductProvider ProductProvider { get; }
     }
 }

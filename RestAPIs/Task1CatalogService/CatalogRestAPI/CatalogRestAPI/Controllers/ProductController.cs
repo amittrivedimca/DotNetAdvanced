@@ -1,5 +1,6 @@
 ﻿using Application;
 using Application.CategoryAL;
+using Application.ProductAL;
 using HelperUtils;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,21 +8,30 @@ namespace CatalogRestAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class ProductController : ControllerBase
     {
         private readonly IApplicationManager _appManager;
-        public CategoryController(IApplicationManager applicationManager)
+        public ProductController(IApplicationManager applicationManager)
         {
             _appManager = applicationManager;
         }
 
-        [HttpGet(Name = "GetAll")]
-        public ActionResult<IEnumerable<CategoryDTO>> GetAll()
+        [HttpGet("{categoryID}/{pageNumber?}/{pageSize?}")]
+
+        public async Task<ActionResult<PagedList<ProductDTO>>> GetAll([FromRoute]int categoryID, 
+            [FromRoute] int pageNumber=0, [FromRoute] int pageSize=0)
         {
-            return Ok(_appManager.CategoryProvider.GetAll());
+            ProductsFilter filter = new ProductsFilter()
+            {
+                CategoryID = categoryID,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            return Ok(await _appManager.ProductProvider.GetAllAsync(filter));
         }
 
-        [HttpGet(Name = "GetById")]
+        [HttpGet()]
         public async Task<ActionResult<CategoryDTO>> GetById(int id)
         {
             var result = await _appManager.CategoryProvider.GetById(id);
@@ -32,12 +42,12 @@ namespace CatalogRestAPI.Controllers
             return Ok(result.Item2);
         }
 
-        [HttpPost(Name = "AddAsync")]
-        public async Task<ActionResult<string>> AddAsync(CategoryDTO category)
+        [HttpPost()]
+        public async Task<ActionResult<string>> Add(ProductDTO product)
         {
             try
             {
-                return (await _appManager.CategoryProvider.AddAsync(category)).ToString();
+                return (await _appManager.ProductProvider.AddAsync(product)).ToString();
             }
             catch (Exception ex)
             {
@@ -45,12 +55,12 @@ namespace CatalogRestAPI.Controllers
             }
         }
 
-        [HttpPut(Name = "UpdateAsync")]
-        public async Task<ActionResult<string>> UpdateAsync(CategoryDTO category)
+        [HttpPut()]
+        public async Task<ActionResult<string>> Update(ProductDTO product)
         {
             try
             {
-                var status = await _appManager.CategoryProvider.UpdateAsync(category);
+                var status = await _appManager.ProductProvider.UpdateAsync(product);
                 if (status == DBOperationStatus.NotFound)
                 {
                     return NotFound(status.ToString());
@@ -63,13 +73,13 @@ namespace CatalogRestAPI.Controllers
             }
         }
 
-        [HttpDelete(Name = "DeleteAsync")]
-        public async Task<ActionResult<string>> DeleteAsync(int id)
+        [HttpDelete()]
+        public async Task<ActionResult<string>> Delete(int id)
         {
             try
             {
-                var status = await _appManager.CategoryProvider.DeleteAsync(id);
-                if(status == DBOperationStatus.NotFound)
+                var status = await _appManager.ProductProvider.DeleteAsync(id);
+                if (status == DBOperationStatus.NotFound)
                 {
                     return NotFound(status.ToString());
                 }
@@ -81,5 +91,4 @@ namespace CatalogRestAPI.Controllers
             }
         }
     }
-
 }

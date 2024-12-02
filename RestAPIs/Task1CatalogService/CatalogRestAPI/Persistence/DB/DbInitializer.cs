@@ -23,7 +23,23 @@ namespace Persistence.DB
                     Name = "Category2"
                 });                
                 dbContext.SaveChanges();
-            }            
+            }
+
+            if (!dbContext.Products.Any())
+            {
+
+                List<Product> products = new List<Product>()
+                { new Product() {Name = "Prod 1",CategoryId = 1 },
+                  new Product() { Name = "Prod 2", CategoryId = 1 } ,
+                  new Product() { Name = "Prod 3", CategoryId = 1 } ,
+                  new Product() { Name = "Prod 4", CategoryId = 1 } ,
+                  new Product() { Name = "Prod 5", CategoryId = 1 },
+                  new Product() { Name = "Prod 6", CategoryId = 1 }
+                };
+
+                dbContext.Products.AddRange(products);
+                dbContext.SaveChanges();
+            }
         }
 
 

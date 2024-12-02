@@ -1,23 +1,30 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Application.ProductAL
 {
-    public class Product
+    public class ProductDTO
     {
         public int ID { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
         public int CategoryId { get; set; }
-
-        [Column(TypeName = "decimal(5, 2)")]
+        
         public decimal Price { get; set; }
         public int Amount { get; set; }
-                
+
+        private class Mapping : Profile
+        {
+            public Mapping()
+            {
+                CreateMap<Product, ProductDTO>();
+                CreateMap<ProductDTO,Product>();
+            }
+        }
     }
 }
