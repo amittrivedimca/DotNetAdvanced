@@ -11,18 +11,18 @@ namespace Application
 {
     public class ApplicationManager : IApplicationManager
     {
-        private readonly Lazy<ICartProvider> _lazyCartService;
+        private readonly Lazy<ICartProvider> _lazyCartProvider;
 
         public ApplicationManager(IMapper mapper, IRepositoryManager repositoryManager)
         {
-            _lazyCartService = new Lazy<ICartProvider>(() => new CartProvider(mapper, repositoryManager));
+            _lazyCartProvider = new Lazy<ICartProvider>(() => new CartProvider(mapper, repositoryManager));
         }
 
-        public ICartProvider CartService
+        public ICartProvider CartProvider
         {
             get
             {
-                return _lazyCartService.Value;
+                return _lazyCartProvider.Value;
             }
         }
     }
