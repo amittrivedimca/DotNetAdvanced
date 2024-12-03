@@ -12,6 +12,7 @@ namespace CatalogRestAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Produces("application/json")]
     public class ProductController : ControllerBase
     {
         private readonly IApplicationManager _appManager;

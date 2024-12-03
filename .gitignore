@@ -38,3 +38,12 @@
 /RestAPIs/Task1CatalogService/CatalogRestAPI/.vs/ProjectEvaluation/catalogrestapi.strings.v9.bin
 /RestAPIs/Task1CatalogService/CatalogRestAPI/HelperUtils/obj
 /RestAPIs/Task1CatalogService/CatalogRestAPI/HelperUtils/bin/Debug/net8.0
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/.vs
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/Application/bin/Debug/net8.0
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/Application/obj
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/Domain/bin/Debug/net8.0
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/Domain/obj
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/Persistence/bin/Debug/net8.0
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/Persistence/obj
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/ShoppingCartRestAPI/bin/Debug/net8.0
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/ShoppingCartRestAPI/obj
