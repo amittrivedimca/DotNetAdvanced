@@ -47,3 +47,5 @@
 /RestAPIs/Task2CartService/ShoppingCartRestAPI/Persistence/obj
 /RestAPIs/Task2CartService/ShoppingCartRestAPI/ShoppingCartRestAPI/bin/Debug/net8.0
 /RestAPIs/Task2CartService/ShoppingCartRestAPI/ShoppingCartRestAPI/obj
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/Domain.UnitTests/bin/Debug/net8.0
+/RestAPIs/Task2CartService/ShoppingCartRestAPI/Domain.UnitTests/obj
