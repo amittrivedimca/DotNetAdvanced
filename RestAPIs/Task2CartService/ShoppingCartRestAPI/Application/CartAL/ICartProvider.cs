@@ -10,8 +10,8 @@ namespace Application.CartAL
     public interface ICartProvider
     {
         public CartDTO GetCart(string cartId);        
-        public List<CartItemDTO> GetCartItems(string cartId);
-        public bool AddItem(CartItemDTO item);
+        public IEnumerable<CartItemDTO> GetCartItems(string cartId);
+        public bool AddItem(string cartId, CartItemDTO item);
         public bool RemoveItem(string cartId, int itemId);
     }
 }

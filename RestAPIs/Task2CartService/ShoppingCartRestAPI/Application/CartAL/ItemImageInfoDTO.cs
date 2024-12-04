@@ -13,7 +13,7 @@ namespace Application.CartAL
             public Mapping()
             {
                 CreateMap<ItemImageInfo, ItemImageInfoDTO>();
-                CreateMap<ItemImageInfo, ItemImageInfo>();
+                CreateMap<ItemImageInfoDTO, ItemImageInfo>();
             }
         }
     }

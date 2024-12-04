@@ -17,7 +17,7 @@ namespace Persistence
         private ILiteCollection<Cart> GetCartsCollection(LiteDatabase db)
         {
             // Get a collection (or create, if doesn't exist)
-            return db.GetCollection<Cart>("crarts");
+            return db.GetCollection<Cart>("carts");
         }
 
         public bool InsertCart(Cart cart)
@@ -50,7 +50,9 @@ namespace Persistence
             {
                 var cartsCollection = GetCartsCollection(db);
                 return cartsCollection.Query()
-                    .Where(x => x.CartId == cartId).FirstOrDefault();
+                    .Where(x => x.CartId == cartId)
+                    .Include(c => c.CartItems)
+                    .FirstOrDefault();
             }
         }
     }

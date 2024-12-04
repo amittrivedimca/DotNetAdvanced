@@ -10,5 +10,6 @@ namespace Domain.Entities
     {
         public string CartId { get; set; }
         public List<CartItem> CartItems { get; set; }
+        
     }
 }

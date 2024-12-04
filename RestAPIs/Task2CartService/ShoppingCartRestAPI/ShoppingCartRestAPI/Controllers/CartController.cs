@@ -21,10 +21,10 @@ namespace ShoppingCartRestAPI.Controllers
         /// </summary>
         /// <param name="cartId"></param>
         /// <returns></returns>
-        [HttpGet(Name = "GetCart")]
+        [HttpGet("GetCart/{cartId}", Name = "GetCart")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<CartDTO> GetCart(string cartId)
+        public ActionResult<CartDTO> GetCart([FromRoute]string cartId)
         {
             var cart = _applicationManager.CartProvider.GetCart(cartId);
             if (cart != null)
@@ -39,10 +39,10 @@ namespace ShoppingCartRestAPI.Controllers
         /// </summary>
         /// <param name="cartId"></param>
         /// <returns></returns>
-        [HttpGet(Name = "GetCartItems")]
+        [HttpGet("GetCartItems/{cartId}", Name = "GetCartItems")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<List<CartItemDTO>> GetCartItems(string cartId)
+        public ActionResult<List<CartItemDTO>> GetCartItems([FromRoute]string cartId)
         {
             var items = _applicationManager.CartProvider.GetCartItems(cartId);
             if (items != null)
@@ -55,16 +55,17 @@ namespace ShoppingCartRestAPI.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="cartId"></param>
         /// <param name="cartItem"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]        
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpPost(Name = "AddCartItem")]
-        public ActionResult AddCartItem(CartItemDTO cartItem)
+        [HttpPost("AddCartItem/{cartId}", Name = "AddCartItem")]
+        public ActionResult AddCartItem([FromRoute]string cartId,CartItemDTO cartItem)
         {
             try
             {
-                _applicationManager.CartProvider.AddItem(cartItem);
+                _applicationManager.CartProvider.AddItem(cartId, cartItem);
                 return Ok();
             }
             catch(Exception ex)

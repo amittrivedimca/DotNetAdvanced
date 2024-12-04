@@ -10,7 +10,7 @@ namespace Application.CartAL
 {
     public class CartItemDTO
     {
-        public int CartId { get; set; }
+        public string CartId { get; set; }
         public int ItemId { get; set; }
         public string Name { get; set; }
         public ItemImageInfoDTO ItemImage { get; set; }

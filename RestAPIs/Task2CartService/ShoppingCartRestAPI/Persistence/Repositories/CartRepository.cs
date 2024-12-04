@@ -27,26 +27,26 @@ namespace Persistence.Repositories
             return cartDB.UpdateCart(cart);
         }
 
-        public bool AddItem(string cartId, CartItem item)
-        {
-            Cart cart = cartDB.GetCart(cartId);
-            cart.CartItems.Add(item);
-            cartDB.UpdateCart(cart);
-            return true;
-        }
+        //public bool AddItem(string cartId, CartItem item)
+        //{
+        //    Cart cart = cartDB.GetCart(cartId);
+        //    cart.CartItems.Add(item);
+        //    cartDB.UpdateCart(cart);
+        //    return true;
+        //}
 
-        public bool RemoveItem(string cartId, int itemId)
-        {
-            Cart cart = cartDB.GetCart(cartId);
-            CartItem? itemToRemove = cart.CartItems.FirstOrDefault(i => i.ItemId == itemId);
+        //public bool RemoveItem(string cartId, int itemId)
+        //{
+        //    Cart cart = cartDB.GetCart(cartId);
+        //    CartItem? itemToRemove = cart.CartItems.FirstOrDefault(i => i.ItemId == itemId);
 
-            if (itemToRemove != null)
-            {
-                cart.CartItems.Remove(itemToRemove);
-            }
+        //    if (itemToRemove != null)
+        //    {
+        //        cart.CartItems.Remove(itemToRemove);
+        //    }
 
-            cartDB.UpdateCart(cart);
-            return true;
-        }
+        //    cartDB.UpdateCart(cart);
+        //    return true;
+        //}
     }
 }
