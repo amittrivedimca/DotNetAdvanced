@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace CA_CatalogService.Application.Category.Commands.UpdateCategory;
 public record UpdateCategoryCommand : IRequest
 {
     public int Id { get; set; }
+    [StringLength(50)]
+    [Required]
     public string Name { get; set; } = string.Empty;    
 }
 

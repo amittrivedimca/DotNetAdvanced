@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ using CA_CatalogService.Domain.Entities;
 namespace CA_CatalogService.Application.Category.Commands.CreateCategory;
 public record CreateCategoryCommand : IRequest<int>
 {
+    [StringLength(50)]
+    [Required]
     public string Name { get; set; } = string.Empty;
     public string? Image { get; set; }
     public CategoryDTO? ParentCategory { get; private set; }

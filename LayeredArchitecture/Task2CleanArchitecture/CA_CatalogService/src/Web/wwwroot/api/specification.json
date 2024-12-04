@@ -47,15 +47,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -262,15 +254,7 @@
         },
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -281,13 +265,18 @@
       "CategoryDTO": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "name"
+        ],
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 0
           },
           "image": {
             "type": "string",
@@ -306,9 +295,14 @@
       "CreateCategoryCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 0
           },
           "image": {
             "type": "string",
@@ -327,13 +321,18 @@
       "UpdateCategoryCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "name"
+        ],
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 0
           }
         }
       },
@@ -393,9 +392,14 @@
       "CreateProductCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "name"
+        ],
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 0
           },
           "description": {
             "type": "string",
@@ -422,13 +426,18 @@
       "UpdateProductCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "name"
+        ],
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 0
           },
           "description": {
             "type": "string",

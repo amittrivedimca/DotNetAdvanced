@@ -1,4 +1,5 @@
-﻿using CA_CatalogService.Application.Products.Commands.CreateProduct;
+﻿using System.ComponentModel.DataAnnotations;
+using CA_CatalogService.Application.Products.Commands.CreateProduct;
 using CA_CatalogService.Application.Products.Commands.DeleteProduct;
 using CA_CatalogService.Application.Products.Commands.UpdateProduct;
 using CA_CatalogService.Application.Products.Queries.GetProducts;
@@ -29,13 +30,23 @@ public class Products : EndpointGroupBase
         return await sender.Send(query);
     }
 
-    public async Task<int> CreateProduct(ISender sender, CreateProductCommand command)
+    public async Task<IResult> CreateProduct(ISender sender, CreateProductCommand command)
     {
-        return await sender.Send(command);
+        bool isValid = isValidCommand(command);
+        if (!isValid)
+        {
+            return Results.BadRequest();
+        }
+        return Results.Ok(await sender.Send(command));
     }
 
     public async Task<IResult> UpdateProduct(ISender sender, int id, UpdateProductCommand command)
     {
+        bool isValid = isValidCommand(command);
+        if (!isValid)
+        {
+            return Results.BadRequest();
+        }
         if (id != command.Id) return Results.BadRequest();
         await sender.Send(command);
         return Results.NoContent();
@@ -45,5 +56,13 @@ public class Products : EndpointGroupBase
     {
         await sender.Send(new DeleteProductCommand(id));
         return Results.NoContent();
+    }
+
+    private bool isValidCommand(object command)
+    {
+        var context = new ValidationContext(command, serviceProvider: null, items: null);
+        var results = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(command, context, results, true);
+        return isValid;
     }
 }

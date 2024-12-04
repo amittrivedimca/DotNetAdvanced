@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using CA_CatalogService.Domain.Entities;
 
 namespace CA_CatalogService.Application.Products.Commands.CreateProduct;
 public record CreateProductCommand : IRequest<int>
 {
+    [Required]
+    [StringLength(50)]
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
     public string? Image { get; set; }

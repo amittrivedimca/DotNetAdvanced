@@ -6,11 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace CA_CatalogService.Application.Products.Commands.UpdateProduct;
 public record UpdateProductCommand : IRequest<int>
 {
     public int Id { get; set; }
+
+    [StringLength(50)]
+    [Required]
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
     public string? Image { get; set; }
