@@ -1,5 +1,6 @@
 ﻿using Application;
 using Application.CartAL;
+using Asp.Versioning;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,8 @@ namespace ShoppingCartRestAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     public class CartController : ControllerBase
     {
         private readonly IApplicationManager _applicationManager;
@@ -21,10 +24,11 @@ namespace ShoppingCartRestAPI.Controllers
         /// </summary>
         /// <param name="cartId"></param>
         /// <returns></returns>
-        [HttpGet("GetCart/{cartId}", Name = "GetCart")]
+        [HttpGet("GetCartInfo/{cartId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<CartDTO> GetCart([FromRoute]string cartId)
+        [ApiVersion("1.0")]
+        public ActionResult<CartDTO> GetCartInfo([FromRoute]string cartId)
         {
             var cart = _applicationManager.CartProvider.GetCart(cartId);
             if (cart != null)
@@ -35,11 +39,30 @@ namespace ShoppingCartRestAPI.Controllers
         }
 
         /// <summary>
+        /// v2 - Get Cart by id
+        /// </summary>
+        /// <param name="cartId"></param>
+        /// <returns></returns>
+        [HttpGet("GetCartItems/{cartId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiVersion("2.0")]
+        public ActionResult<CartDTO> GetCartItemsInfo([FromRoute] string cartId)
+        {
+            var cart = _applicationManager.CartProvider.GetCart(cartId);
+            if (cart != null)
+            {
+                return Ok(cart.CartItems);
+            }
+            return NotFound();
+        }
+
+        /// <summary>
         /// Get Cart Items by CartId
         /// </summary>
         /// <param name="cartId"></param>
         /// <returns></returns>
-        [HttpGet("GetCartItems/{cartId}", Name = "GetCartItems")]
+        [HttpGet("GetCartItems/{cartId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<CartItemDTO>> GetCartItems([FromRoute]string cartId)
@@ -60,7 +83,7 @@ namespace ShoppingCartRestAPI.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]        
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpPost("AddCartItem/{cartId}", Name = "AddCartItem")]
+        [HttpPost("AddCartItem/{cartId}")]
         public ActionResult AddCartItem([FromRoute]string cartId,CartItemDTO cartItem)
         {
             if(!ModelState.IsValid)
