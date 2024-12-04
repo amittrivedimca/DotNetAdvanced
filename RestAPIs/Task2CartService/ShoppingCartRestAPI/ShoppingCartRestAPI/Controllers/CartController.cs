@@ -53,7 +53,7 @@ namespace ShoppingCartRestAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Add Cart Item. Create new cart if not exists.
         /// </summary>
         /// <param name="cartId"></param>
         /// <param name="cartItem"></param>
@@ -63,6 +63,11 @@ namespace ShoppingCartRestAPI.Controllers
         [HttpPost("AddCartItem/{cartId}", Name = "AddCartItem")]
         public ActionResult AddCartItem([FromRoute]string cartId,CartItemDTO cartItem)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest("Invalid input data!");
+            }
+
             try
             {
                 _applicationManager.CartProvider.AddItem(cartId, cartItem);

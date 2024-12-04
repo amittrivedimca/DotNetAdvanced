@@ -21,7 +21,7 @@ namespace Application.CartAL
             _repositoryManager = repositoryManager;
         }
 
-        public bool AddItem(string cartId, CartItemDTO item)
+        public CartDTO AddItem(string cartId, CartItemDTO item)
         {
             var cart = _repositoryManager.CartRepository.GetCart(cartId);
             CartBL cartBL = null;
@@ -50,7 +50,7 @@ namespace Application.CartAL
                     _repositoryManager.CartRepository.UpdateCart(cartBL.Cart);
                 }
 
-                return true;
+                return _mapper.Map<Cart,CartDTO>(cartBL.Cart); 
             }
             catch (Exception ex) {
                 throw;

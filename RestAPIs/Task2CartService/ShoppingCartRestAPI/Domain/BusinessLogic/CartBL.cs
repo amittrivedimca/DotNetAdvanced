@@ -25,9 +25,8 @@ namespace Domain.BusinessLogic
 
         public void CreateCart()
         {
-            Cart = new Cart();
-            Cart.CartId = GenerateCartId();
-            
+            Cart = new Cart();            
+            Cart.CartId = GenerateCartId();            
         }
 
         public void AddItem(CartItem cartItem)
